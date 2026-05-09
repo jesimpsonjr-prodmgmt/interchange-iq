@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>InterchangeIQ - Interchange Fee Optimization Platform</title>
+<meta name="description" content="Interactive demo of interchange fee optimization tools. Pre-flight validation, downgrade detection, intelligent routing, and emerging payment rail evaluation.">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header>
+  <div class="header-inner">
+    <div class="header-brand">
+      <div class="brand-icon" aria-hidden="true">IQ</div>
+      <h1>InterchangeIQ</h1>
+    </div>
+    <a href="https://johnsimpson.io" class="back-link" aria-label="Back to portfolio">&larr; johnsimpson.io</a>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="hero">
+  <h2>Stop Overpaying on <span class="accent">Interchange</span></h2>
+  <p>Six interactive tools that show how data quality, processor selection, and transaction design drive your true cost of card acceptance. Built from 20 years of payments expertise.</p>
+  <button class="hero-cta" id="start-tour-btn" aria-label="Start guided walkthrough">
+    Start Guided Tour &rarr;
+  </button>
+</section>
+
+<!-- ============ TAB NAVIGATION ============ -->
+<nav class="tab-nav-wrapper" aria-label="Tool navigation">
+  <div class="tab-nav" role="tablist">
+    <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="section-validator" data-tab="validator">Validator</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="section-downgrade" data-tab="downgrade">Downgrade</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="section-routing" data-tab="routing">Routing</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="section-cedp" data-tab="cedp">CEDP</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="section-lookup" data-tab="lookup">Rate Lookup</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="section-agentic" data-tab="agentic">Agentic</button>
+  </div>
+</nav>
+
+<!-- ============ TOOL SECTIONS ============ -->
+<main>
+
+  <!-- Tool 1: Transaction Validator -->
+  <section class="tool-section active" id="section-validator" role="tabpanel" aria-labelledby="tab-validator">
+    <div class="section-header">
+      <h2>Transaction Validator</h2>
+      <p>Check a transaction against interchange qualification rules. See which fields pass, which fail, and what rate you will actually pay.</p>
+    </div>
+    <div id="validator-content"></div>
+  </section>
+
+  <!-- Tool 2: Downgrade Simulator -->
+  <section class="tool-section" id="section-downgrade" role="tabpanel" aria-labelledby="tab-downgrade">
+    <div class="section-header">
+      <h2>Downgrade Simulator</h2>
+      <p>Watch a transaction fall through interchange tiers as you remove data fields. See the cost impact of each missing element.</p>
+    </div>
+    <div id="downgrade-content"></div>
+  </section>
+
+  <!-- Tool 3: Routing Comparison Calculator -->
+  <section class="tool-section" id="section-routing" role="tabpanel" aria-labelledby="tab-routing">
+    <div class="section-header">
+      <h2>Routing Comparison Calculator</h2>
+      <p>Compare total cost across processors and payment rails for the same transaction. Find the cheapest path to settlement.</p>
+    </div>
+    <div id="routing-content"></div>
+  </section>
+
+  <!-- Tool 4: CEDP Readiness Checker -->
+  <section class="tool-section" id="section-cedp" role="tabpanel" aria-labelledby="tab-cedp">
+    <div class="section-header">
+      <h2>CEDP Readiness Checker</h2>
+      <p>Evaluate whether your Level III data would pass Visa's AI-driven Commercial Enhanced Data Program audit under the April 2026 rules.</p>
+    </div>
+    <div id="cedp-content"></div>
+  </section>
+
+  <!-- Tool 5: Interchange Rate Lookup -->
+  <section class="tool-section" id="section-lookup" role="tabpanel" aria-labelledby="tab-lookup">
+    <div class="section-header">
+      <h2>Interchange Rate Lookup</h2>
+      <p>Searchable reference of 50 Visa and Mastercard interchange categories. Filter by network, card type, and entry mode to find your rate.</p>
+    </div>
+    <div id="lookup-content"></div>
+  </section>
+
+  <!-- Tool 6: Agentic Commerce Risk Simulator -->
+  <section class="tool-section" id="section-agentic" role="tabpanel" aria-labelledby="tab-agentic">
+    <div class="section-header">
+      <h2>Agentic Commerce Risk Simulator</h2>
+      <p>See how AI agent-initiated transactions introduce new interchange downgrade risks compared to human-initiated flows.</p>
+    </div>
+    <div id="agentic-content"></div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="footer-inner">
+    <p>Built by John Simpson. Senior Product Manager. 20 years in enterprise fintech and payments.</p>
+    <p class="attribution">Code is AI-assisted. Product thinking, domain expertise, and strategic commentary are mine.</p>
+  </div>
+</footer>
+
+<!-- ============ TOUR PROMPT ============ -->
+<div class="tour-prompt" id="tour-prompt" role="dialog" aria-label="Start guided tour">
+  <div class="tour-prompt-content">
+    <button class="tour-prompt-close" id="tour-prompt-close" aria-label="Dismiss">&times;</button>
+    <div class="tour-prompt-icon">&#9654;</div>
+    <div>
+      <h3>New here? Take the guided tour.</h3>
+      <p>A 2-minute walkthrough of all six tools with real interchange scenarios.</p>
+    </div>
+    <button class="btn btn-primary btn-sm" id="tour-prompt-start">Start Tour</button>
+  </div>
+</div>
+
+<!-- ============ GUIDED TOUR OVERLAY ============ -->
+<div class="tour-overlay" id="tour-overlay" aria-hidden="true">
+  <div class="tour-tooltip" id="tour-tooltip" role="dialog" aria-label="Guided tour step">
+    <div class="tour-progress" id="tour-progress"></div>
+    <h3 id="tour-title"></h3>
+    <p id="tour-body"></p>
+    <div class="tour-nav">
+      <button class="btn btn-sm" id="tour-back">Back</button>
+      <button class="btn btn-sm" id="tour-skip">Skip Tour</button>
+      <button class="btn btn-sm btn-primary" id="tour-next">Next</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ SCRIPTS ============ -->
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
